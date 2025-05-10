@@ -1,6 +1,9 @@
+import assert from 'node:assert/strict';
+import { describe, it, afterEach } from 'node:test';
+
 import { renderHook, waitFor } from '@testing-library/react';
 
-import useDetectOS from '@/hooks/react-client/useDetectOS';
+import useDetectOS from '#site/hooks/react-client/useDetectOS';
 
 const windowsUserAgent =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36';
@@ -23,7 +26,7 @@ describe('useDetectOS', () => {
       value: {
         userAgent: windowsUserAgent,
         userAgentData: {
-          getHighEntropyValues: jest.fn().mockResolvedValue({ bitness: '64' }),
+          getHighEntropyValues: () => ({ bitness: '64' }),
         },
       },
       writable: true,
@@ -32,7 +35,7 @@ describe('useDetectOS', () => {
     const { result } = renderHook(() => useDetectOS());
 
     await waitFor(() => {
-      expect(result.current).toStrictEqual({
+      assert.deepEqual(result.current, {
         os: 'WIN',
         bitness: '64',
         architecture: 'x86',
@@ -49,7 +52,7 @@ describe('useDetectOS', () => {
     const { result } = renderHook(() => useDetectOS());
 
     await waitFor(() => {
-      expect(result.current).toStrictEqual({
+      assert.deepEqual(result.current, {
         os: 'WIN',
         bitness: '64',
         architecture: 'x86',
@@ -66,7 +69,7 @@ describe('useDetectOS', () => {
     const { result } = renderHook(() => useDetectOS());
 
     await waitFor(() => {
-      expect(result.current).toStrictEqual({
+      assert.deepEqual(result.current, {
         os: 'MAC',
         bitness: '32',
         architecture: 'x86',

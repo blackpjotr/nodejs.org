@@ -1,17 +1,20 @@
 # Commonly ignored Node.js files
 node_modules
+.env.*
+
+# npm Compatibility
+# https://github.com/nodejs/nodejs.org/discussions/5334#discussioncomment-12827850
 npm-debug.log
 .npm
-.env.*
+package-lock.json
 
 # Next.js Build Output
 .next
 build
 
-# Jest
-coverage
-.swc
+# Test Runner
 junit.xml
+lcov.info
 
 # Storybook
 storybook-static

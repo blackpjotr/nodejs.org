@@ -1,6 +1,5 @@
 'use strict';
-
-import withNextIntl from 'next-intl/plugin';
+import createNextIntlPlugin from 'next-intl/plugin';
 
 import { BASE_PATH, ENABLE_STATIC_EXPORT } from './next.constants.mjs';
 import { redirects, rewrites } from './next.rewrites.mjs';
@@ -84,7 +83,6 @@ const nextConfig = {
       '@radix-ui/react-accessible-icon',
       '@radix-ui/react-dropdown-menu',
       '@radix-ui/react-label',
-      '@radix-ui/react-scroll-area',
       '@radix-ui/react-select',
       '@radix-ui/react-slot',
       '@radix-ui/react-tabs',
@@ -99,4 +97,5 @@ const nextConfig = {
   },
 };
 
-export default withNextIntl('./i18n.tsx')(nextConfig);
+const withNextIntl = createNextIntlPlugin('./i18n.tsx');
+export default withNextIntl(nextConfig);
