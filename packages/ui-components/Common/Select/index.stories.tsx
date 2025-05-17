@@ -1,7 +1,7 @@
 import type { Meta as MetaObj, StoryObj } from '@storybook/react';
 
-import Select from '@node-core/ui-components/Common/Select';
-import * as OSIcons from '@node-core/ui-components/Icons/OperatingSystem';
+import Select from '#ui/Common/Select';
+import * as OSIcons from '#ui/Icons/OperatingSystem';
 
 type Story = StoryObj<typeof Select>;
 type Meta = MetaObj<typeof Select>;
@@ -18,6 +18,13 @@ export const WithoutLabel: Story = {
   args: {
     values: ['v20.8.0', 'v19.9.0', 'v18.18.0', 'v17.9.1', 'v16.20.2'],
     defaultValue: 'v16.20.2',
+  },
+};
+
+export const WithScrollButtons: Story = {
+  args: {
+    values: Array.from({ length: 100 }, (_, i) => `Item ${i}`),
+    defaultValue: 'Item 50',
   },
 };
 
