@@ -1,6 +1,6 @@
 'use strict';
 
-import localeConfig from '@node-core/website-i18n/config.json' with { type: 'json' };
+import localeConfig from '../config.json' with { type: 'json' };
 
 /**
  * Imports a locale when exists from the locales directory
@@ -9,7 +9,9 @@ import localeConfig from '@node-core/website-i18n/config.json' with { type: 'jso
  * @returns {Promise<Record<string, any>>} The imported locale
  */
 export const importLocale = async locale => {
-  return import(`../locales/${locale}.json`).then(f => f.default);
+  return import(`../locales/${locale}.json`, { with: { type: 'json' } }).then(
+    f => f.default
+  );
 };
 
 /**

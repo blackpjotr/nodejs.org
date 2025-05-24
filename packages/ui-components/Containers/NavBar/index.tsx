@@ -12,11 +12,8 @@ import type {
   ElementType,
 } from 'react';
 
-import NavItem from '@node-core/ui-components/Containers/NavBar/NavItem';
-import type {
-  FormattedMessage,
-  LinkLike,
-} from '@node-core/ui-components/types';
+import NavItem from '#ui/Containers/NavBar/NavItem';
+import type { FormattedMessage, LinkLike } from '#ui/types';
 
 import style from './index.module.css';
 
@@ -57,6 +54,8 @@ const NavBar: FC<PropsWithChildren<NavbarProps>> = ({
         <Label.Root
           className={style.sidebarItemTogglerLabel}
           htmlFor="sidebarItemToggler"
+          role="button"
+          aria-label={sidebarItemTogglerAriaLabel}
         >
           {navInteractionIcons[isMenuOpen ? 'close' : 'show']}
         </Label.Root>

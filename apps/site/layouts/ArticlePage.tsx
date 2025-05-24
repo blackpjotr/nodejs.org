@@ -1,15 +1,15 @@
+import Article from '@node-core/ui-components/Containers/Article';
 import type { FC, PropsWithChildren } from 'react';
 
-import WithMetaBar from '@/components/withMetaBar';
-import WithNavBar from '@/components/withNavBar';
-import WithSidebar from '@/components/withSidebar';
-import ArticleLayout from '@/layouts/Article';
+import WithMetaBar from '#site/components/withMetaBar';
+import WithNavBar from '#site/components/withNavBar';
+import WithSidebar from '#site/components/withSidebar';
 
 const ArticlePageLayout: FC<PropsWithChildren> = ({ children }) => (
   <>
     <WithNavBar />
 
-    <ArticleLayout>
+    <Article>
       <WithSidebar navKeys={[]} />
 
       <div>
@@ -17,7 +17,7 @@ const ArticlePageLayout: FC<PropsWithChildren> = ({ children }) => (
 
         <WithMetaBar />
       </div>
-    </ArticleLayout>
+    </Article>
   </>
 );
 

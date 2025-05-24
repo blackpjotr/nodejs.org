@@ -18,6 +18,7 @@
   - [Adding a Download Package Manager](#adding-a-download-package-manager)
 - [Unit Tests and Storybooks](#unit-tests-and-storybooks)
   - [General Guidelines for Unit Tests](#general-guidelines-for-unit-tests)
+  - [General Guidelines for Playwright E2E Tests](#general-guidelines-for-playwright-e2e-tests)
   - [General Guidelines for Storybooks](#general-guidelines-for-storybooks)
 - [Remarks on Technologies used](#remarks-on-technologies-used)
 - [Seeking additional clarification](#seeking-additional-clarification)
@@ -356,7 +357,7 @@ To add a new download installation method, follow these steps:
    }
    ```
 
-3. **Update `InstallationMethodLabel` and `InstallationMethod` in `@/types/release.ts`:**
+3. **Update `InstallationMethodLabel` and `InstallationMethod` in `apps/site/types/release.ts`:**
 
    - Add the new method to the `InstallationMethodLabel` and `InstallationMethod` types.
 
@@ -418,7 +419,7 @@ You can add a PACKAGE_MANAGER the same way as adding an INSTALLATION_METHOD (fro
 ## Unit Tests and Storybooks
 
 Each new feature or bug fix should be accompanied by a unit test (when deemed valuable).
-We use [Jest][] as our test runner and [React Testing Library][] for our React unit tests.
+We use [`node:test`][] as our test runner and [React Testing Library][] for our React unit tests.
 
 We also use [Storybook][] to document our components.
 Components within `packages/ui-components` should have a storybook story that documents the component's usage.
@@ -434,10 +435,25 @@ Unit Tests are fundamental to ensure that code changes do not disrupt the functi
 - Unit Tests should ensure that a given change's functionality is working as expected.
 - When creating unit tests for React components, we recommend that the tests cover all the possible states of the component.
 - We also recommend mocking external dependencies, if unsure about how to mock a particular dependency, raise the question on your Pull Request.
-  - We recommend using [Jest's Mock Functions](https://jestjs.io/docs/en/mock-functions) for mocking dependencies.
-  - We recommend using [Jest's Mock Modules](https://jestjs.io/docs/en/manual-mocks) for mocking dependencies unavailable on the Node.js runtime.
   - Common Providers and Contexts from the lifecycle of our App, such as [`next-intl`][] should not be mocked but given an empty or fake context whenever possible.
 - We recommend reading previous unit tests from the codebase for inspiration and code guidelines.
+
+### General Guidelines for Playwright E2E Tests
+
+End-to-end (E2E) tests are essential for ensuring that the entire application works correctly from a user's perspective:
+
+- E2E tests are located in the `apps/site/tests/e2e` directory.
+- We use [Playwright](https://playwright.dev/) as our E2E testing framework.
+- E2E tests should focus on user flows and critical paths through the application.
+- Tests should be written to be resilient to minor UI changes and should prioritize testing functionality over exact visual appearance.
+- When writing E2E tests:
+  - Use meaningful test descriptions that clearly indicate what is being tested.
+  - Group related tests using Playwright's test grouping features.
+  - Use page objects or similar patterns to keep tests maintainable.
+  - Minimize test interdependencies to prevent cascading failures.
+- Tests should run against the built application to accurately reflect the production environment.
+- We recommend reviewing existing E2E tests in the codebase for patterns and best practices.
+- If your feature involves complex user interactions or spans multiple pages, consider adding E2E tests to verify the complete flow.
 
 ### General Guidelines for Storybooks
 
@@ -620,7 +636,7 @@ It is important to mention that there are some rules on our Vercel Deployments s
 
 - Branches starting with `dependabot` (Dependabot Automated PRs) or `gh` (GitHub Merge Queues) are not deployed to Vercel.
 - Vercel Deployments are triggered for all other branches during `push` activities.
-- We have a custom install script that executes `npm ci --omit=dev` (the same way we do on our CI Pipelines)
+- We have a custom install script that executes `pnpm install --prod --frozen-lockfile` (the same way we do on our CI Pipelines)
   - Hence if Builds fail unexpectedly, make sure that your dependency that is being used during build-time is on `dependencies` and not `devDependencies`. Checkout out [DEPENDENCY_PINNING.md](./DEPENDENCY_PINNING.md) for more information.
 - Our sponsorship with Vercel is maintained by the OpenJS Foundation
 
@@ -633,17 +649,13 @@ The repository defines an optimized configuration for code editing. This is opti
 
 Defining a `.vscode` configuration like this also aides browser-only development using [GitHub's Codespaces feature](https://github.com/features/codespaces). The web-based GUI will read these same configuration files and setup the remote development environment the same way every time.
 
-### Why we have an `.npmrc` file
-
-The npm ecosystem resolution and installation of `peerDependencies` installation [changed in recent versions](https://nodejs.org/en/blog/npm/peer-dependencies#using-peer-dependencies). The project documents what version of `Node.js` and `npm` to use via the [`.nvmrc` file](https://github.com/nodejs/nodejs.org/blob/main/.nvmrc). Not all contributors have tooling to automatically read this file and adhere to the correct version, however. To ensure all contributors install dependencies the same way, a local `.npmrc` file directly configures peerDependency installation behavior.
-
 ## Seeking additional clarification
 
 A lot of the current structure is due to retro-compatibility, keeping a simple and familiar file structure and keeping files that have historical reasons or needs.
 
 If you're unfamiliar or curious about something, we recommend opening a Discussion on this GitHub Repository.
 
-[Jest]: https://jestjs.io/
+[`node:test`]: https://nodejs.org/api/test.html
 [React Testing Library]: https://testing-library.com/docs/react-testing-library/intro/
 [Storybook]: https://storybook.js.org/
 [`next-intl`]: https://next-intl-docs.vercel.app

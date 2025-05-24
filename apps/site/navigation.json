@@ -244,6 +244,10 @@
               "link": "/learn/asynchronous-work/javascript-asynchronous-programming-and-callbacks",
               "label": "components.navigation.learn.asynchronousWork.links.javascriptAsynchronousProgrammingAndCallbacks"
             },
+            "discoverPromisesInNodejs": {
+              "link": "/learn/asynchronous-work/discover-promises-in-nodejs",
+              "label": "components.navigation.learn.asynchronousWork.links.discoverPromisesInNodejs"
+            },
             "discoverJavascriptTimers": {
               "link": "/learn/asynchronous-work/discover-javascript-timers",
               "label": "components.navigation.learn.asynchronousWork.links.discoverJavascriptTimers"
@@ -325,6 +329,15 @@
             "acceptInputFromTheCommandLineInNodejs": {
               "link": "/learn/command-line/accept-input-from-the-command-line-in-nodejs",
               "label": "components.navigation.learn.commandLine.links.acceptInputFromTheCommandLineInNodejs"
+            }
+          }
+        },
+        "migrations": {
+          "label": "components.navigation.learn.migrations.links.migrations",
+          "items": {
+            "introduction": {
+              "link": "/learn/migrations/introduction",
+              "label": "components.navigation.learn.migrations.links.introduction"
             }
           }
         },
